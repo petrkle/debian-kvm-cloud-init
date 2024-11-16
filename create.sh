@@ -2,7 +2,7 @@
 
 set -e
 
-NAME=debian12
+NAME=$1
 RAM=2048
 CPU=2
 DISK=10G
@@ -14,7 +14,7 @@ qemu-img create -u -b debian-12-generic-amd64.qcow2 -f qcow2 -F qcow2 "${NAME}.i
 echo "instance-id: ${NAME}
 local-hostname: ${NAME}" > meta-data
 
-mkisofs -output cidata.iso -V cidata -r -J user-data meta-data
+mkisofs -output cidata.${NAME}.iso -V cidata -r -J user-data meta-data
 
 virt-install \
   --connect qemu:///system \
@@ -23,7 +23,7 @@ virt-install \
   --vcpus=${CPU} \
   --import \
   --disk path=${NAME}.img,format=qcow2 \
-  --disk path=cidata.iso,device=cdrom \
+  --disk path=cidata.${NAME}.iso,device=cdrom \
   --os-variant=debian12 \
   --network network=default,model=virtio \
   --graphics vnc,listen=0.0.0.0 \

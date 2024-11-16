@@ -1,11 +1,11 @@
 #!/bin/bash
 
-NAME=debian12
+NAME=${NAME}
 
 sudo virsh destroy ${NAME}
 
 sudo virsh undefine --domain ${NAME}
 
-sudo rm cidata.iso
+sudo rm cidata.${NAME}.iso
 
 rm ${NAME}.img
