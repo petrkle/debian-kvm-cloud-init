@@ -1,6 +1,6 @@
 #!/bin/bash
 
-NAME=${NAME}
+NAME=$1
 
 sudo virsh destroy ${NAME}
 
